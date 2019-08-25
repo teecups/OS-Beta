@@ -4,12 +4,15 @@ local Camera = game.Workspace.Camera
 local p = game:GetService("Players").LocalPlayer
 local mouse = p:GetMouse()
 local fov = 75
+local WHB = game.ReplicatedStorage.SharedVars.Bomber.Value
 local a = false
 local b = false
 local c = false
 local d = false
 local e = false
 local f = false
+local g = false
+local j = false
 --/Vars
 
 --UI
@@ -180,6 +183,9 @@ Tabs.OS_Beta.AddToggle'Aimbot';
 Tabs.OS_Beta.AddToggle'ThirdPerson';
 Tabs.OS_Beta.AddToggle'WallColl';
 Tabs.OS_Beta.AddToggle'FovChanger';
+CreateTab'Other';
+Tabs.Other.AddToggle'Spawn_Switcher';
+Tabs.Other.AddToggle'Bomb_Switcher';
 
 --/UI
 
@@ -389,9 +395,8 @@ game:GetService("UserInputService").InputEnded:connect(onKeyRelease)
 
 --Esp
 function esp()
-trans = 0.5	
+trans = 0.5
 	for i,l in pairs(game:GetService("Players"):GetChildren()) do
-		print (game:GetService("Players").LocalPlayer.Team)
 		if l ~= game:GetService("Players").LocalPlayer then
 		for i,v in pairs(l.Character:GetChildren()) do
             if v.ClassName == "MeshPart" or "Part" and v.Name ~= "HumanoidRootPart" then
@@ -408,8 +413,14 @@ trans = 0.5
 			Frame.BackgroundTransparency = trans
 			
 			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				Frame.BackgroundColor3 = Color3.new(17,17 ,17)
-				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
+				if Bomber ~= nil then
+					if Bomber == l.Name then
+						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
+					else
+						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+					end
+				end
+			else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
 
 			end
 			
@@ -426,7 +437,13 @@ trans = 0.5
 			Frame.BackgroundTransparency = trans
 			
 			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+				if Bomber ~= nil then
+					if Bomber == l.Name then
+						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
+					else
+						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+					end
+				end
 				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
 
 			end
@@ -444,7 +461,13 @@ trans = 0.5
 			Frame.BackgroundTransparency = trans
 			
 			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+				if Bomber ~= nil then
+					if Bomber == l.Name then
+						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
+					else
+						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+					end
+				end
 				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
 
 			end
@@ -463,7 +486,13 @@ trans = 0.5
 			Frame.BackgroundTransparency = trans
 			
 			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+				if Bomber ~= nil then
+					if Bomber == l.Name then
+						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
+					else
+						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+					end
+				end
 				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
 
 			end
@@ -480,7 +509,13 @@ trans = 0.5
 			Frame.BackgroundTransparency = trans
 			
 		if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+			if Bomber ~= nil then
+				if Bomber == l.Name then
+					Frame.BackgroundColor3 = Color3.new(245, 255, 100)
+				else
+					Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+				end
+			end
 				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
 
 			end
@@ -498,14 +533,16 @@ trans = 0.5
 			
 			
 			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+				if Bomber ~= nil then
+					if Bomber == l.Name then
+						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
+					else
+						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+					end
+				end
 				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
 
 			end
-		
-			
-			print (v.Name)
-				
 			end
 		end
 		end
@@ -533,6 +570,44 @@ end
 local Move = game.Workspace.Map
 spawn(function()
 	repeat wait(.5);
+
+		if Toggles.Bomb_Switcher then
+			if j == false then
+				local cs = game.workspace.Bombsites:FindFirstChild("Y").Position
+				local p = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+				pos = CFrame.new(cs + Vector3.new(0,2.5,0))
+				p.CFrame = pos
+				--code
+				j = true
+			end
+		else
+			if j == true then
+				local cs = game.workspace.Bombsites	:FindFirstChild("X").Position
+				local p = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+				pos = CFrame.new(cs + Vector3.new(0,2.5,0))
+				p.CFrame = pos
+				--code
+				j = false
+			end
+		end
+
+		if Toggles.Spawn_Switcher then
+			if g == false then
+				local cs = game.workspace.Spawns.Atk:FindFirstChild("SpawnLocation").Position
+				local p = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+				pos = CFrame.new(cs + Vector3.new(0,2.5,0))
+				p.CFrame = pos
+				g = true
+			end
+		else
+			if g == true then
+				local cs = game.workspace.Spawns.Def:FindFirstChild("SpawnLocation").Position
+				local p = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+				pos = CFrame.new(cs + Vector3.new(0,2.5,0))
+				p.CFrame = pos
+				g = false
+			end
+		end
 
 		if Toggles.WallColl then
 			if f == false then
@@ -606,3 +681,8 @@ spawn(function()
     until nil;
 end)
 --/MainLoop
+
+--Notif
+game:GetService('StarterGui'):SetCore("SendNotification", {Title = "OS_Beta", Text = "OS_Beta Loaded"})
+game:GetService('StarterGui'):SetCore("SendNotification", {Title = "OS_Beta", Text = "Use right 'Ctrl' key to toggle gui"})
+--/Notif
