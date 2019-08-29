@@ -1,5 +1,6 @@
 --Vars
 local UserInputService = game:GetService("UserInputService")
+local Chars = game.workspace.Chars
 local Camera = game.Workspace.Camera
 local p = game:GetService("Players").LocalPlayer
 local mouse = p:GetMouse()
@@ -13,6 +14,7 @@ local e = false
 local f = false
 local g = false
 local j = false
+local aa = false
 --/Vars
 
 --UI
@@ -186,6 +188,7 @@ Tabs.OS_Beta.AddToggle'FovChanger';
 CreateTab'Other';
 Tabs.Other.AddToggle'Spawn_Switcher';
 Tabs.Other.AddToggle'Bomb_Switcher';
+Tabs.Other.AddToggle'PingSpoofer';
 
 --/UI
 
@@ -394,182 +397,89 @@ game:GetService("UserInputService").InputEnded:connect(onKeyRelease)
 --/Aimbot
 
 --Esp
+local gui = Instance.new("BillboardGui");
+gui.Name = "";  
+gui.AlwaysOnTop = true;
+gui.LightInfluence = 0;
+gui.Size = UDim2.new(2, 0, 2.5, 0);
+local frame = Instance.new("Frame", gui);
+frame.BackgroundColor3 = Color3.fromRGB(255, 51, 153);
+frame.BackgroundTransparency = 0.75
+frame.Size = UDim2.new(2, 0, 2.5, 0);
+frame.BorderSizePixel = 1;
+frame.BorderColor3 = Color3.fromRGB(0, 0, 0);
+local gi = gui:Clone();
+local body = frame:Clone();
+body.Parent = gi;
+body.BackgroundColor3 = Color3.fromRGB(0, 170, 170);
 function esp()
-trans = 0.5
 	for i,l in pairs(game:GetService("Players"):GetChildren()) do
 		if l ~= game:GetService("Players").LocalPlayer then
-		for i,v in pairs(l.Character:GetChildren()) do
-            if v.ClassName == "MeshPart" or "Part" and v.Name ~= "HumanoidRootPart" then
-                
-            --
-                xd = Instance.new("SurfaceGui")
-				xd.Face = Enum.NormalId.Back
-			xd.Parent = v
-			xd.AlwaysOnTop = true
-			Frame = Instance.new("Frame")
-			Frame.Parent = xd
-			Frame.BackgroundColor3 = Color3.new(1, 1, 1)
-			Frame.Size = UDim2.new(1, 0, 1, 0)
-			Frame.BackgroundTransparency = trans
-			
 			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				if Bomber ~= nil then
-					if Bomber == l.Name then
-						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
-					else
-						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
+				local p = l.Name
+					if Chars:FindFirstChild(p) then
+						head = Chars:FindFirstChild(p).Head
+						gui:Clone().Parent = head
 					end
 				end
-			else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
-
-			end
-			
-			--
-			
-				xd = Instance.new("SurfaceGui")
-				xd.Face = Enum.NormalId.Bottom
-			xd.Parent = v
-			xd.AlwaysOnTop = true
-			Frame = Instance.new("Frame")
-			Frame.Parent = xd
-			Frame.BackgroundColor3 = Color3.new(1, 1, 1)
-			Frame.Size = UDim2.new(1, 0, 1, 0)
-			Frame.BackgroundTransparency = trans
-			
-			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				if Bomber ~= nil then
-					if Bomber == l.Name then
-						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
-					else
-						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
-					end
-				end
-				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
-
-			end
-
-			--
-			
-			xd = Instance.new("SurfaceGui")
-				xd.Face = Enum.NormalId.Front
-			xd.Parent = v
-			xd.AlwaysOnTop = true
-			Frame = Instance.new("Frame")
-			Frame.Parent = xd
-			Frame.BackgroundColor3 = Color3.new(1, 1, 1)
-			Frame.Size = UDim2.new(1, 0, 1, 0)
-			Frame.BackgroundTransparency = trans
-			
-			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				if Bomber ~= nil then
-					if Bomber == l.Name then
-						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
-					else
-						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
-					end
-				end
-				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
-
-			end
-			
-			
-			--
-			
-			xd = Instance.new("SurfaceGui")
-				xd.Face = Enum.NormalId.Left
-			xd.Parent = v
-			xd.AlwaysOnTop = true
-			Frame = Instance.new("Frame")
-			Frame.Parent = xd
-			Frame.BackgroundColor3 = Color3.new(1, 1, 1)
-			Frame.Size = UDim2.new(1, 0, 1, 0)
-			Frame.BackgroundTransparency = trans
-			
-			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				if Bomber ~= nil then
-					if Bomber == l.Name then
-						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
-					else
-						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
-					end
-				end
-				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
-
-			end
-			--
-			
-			xd = Instance.new("SurfaceGui")
-				xd.Face = Enum.NormalId.Right
-			xd.Parent = v
-			xd.AlwaysOnTop = true
-			Frame = Instance.new("Frame")
-			Frame.Parent = xd
-			Frame.BackgroundColor3 = Color3.new(1, 1, 1)
-			Frame.Size = UDim2.new(1, 0, 1, 0)
-			Frame.BackgroundTransparency = trans
-			
-		if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-			if Bomber ~= nil then
-				if Bomber == l.Name then
-					Frame.BackgroundColor3 = Color3.new(245, 255, 100)
-				else
-					Frame.BackgroundColor3 = Color3.new(17,17 ,17)
-				end
-			end
-				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
-
-			end
-			--
-			
-			xd = Instance.new("SurfaceGui")
-				xd.Face = Enum.NormalId.Top
-			xd.Parent = v
-			xd.AlwaysOnTop = true
-			Frame = Instance.new("Frame")
-			Frame.Parent = xd
-			Frame.BackgroundColor3 = Color3.new(1, 1, 1)
-			Frame.Size = UDim2.new(1, 0, 1, 0)
-			Frame.BackgroundTransparency = trans
-			
-			
-			if l.Team ~= game:GetService("Players").LocalPlayer.Team then
-				if Bomber ~= nil then
-					if Bomber == l.Name then
-						Frame.BackgroundColor3 = Color3.new(245, 255, 100)
-					else
-						Frame.BackgroundColor3 = Color3.new(17,17 ,17)
-					end
-				end
-				else Frame.BackgroundColor3 = Color3.new(0, 255, 255)
-
-			end
 			end
 		end
-		end
-		end
-			
-end
+	end
 --/Esp
 
 --rESP
 function resp()
-    for i,v in pairs (game:GetService("Players"):GetChildren()) do
-        for i,k in pairs(v.Character:GetChildren()) do
-        for i,l in pairs(k:GetChildren()) do
-        if l.ClassName == "SurfaceGui" then
-            l:Remove()
-        end
-        end
-        end
-    end
-        
-end
+	for i,l in pairs(game:GetService("Players"):GetChildren()) do
+		if l ~= game:GetService("Players").LocalPlayer then
+			local p = l.Name
+			if Chars:FindFirstChild(p) then
+				head = Chars:FindFirstChild(p).Head
+				for i,l in pairs(head:GetChildren()) do
+					if l.ClassName == "BillboardGui" then
+						l:Destroy()
+					end
+				end
+			end
+		end
+	end
+	end
 --/rESP
 
 --MainLoop
 local Move = game.Workspace.Map
 spawn(function()
 	repeat wait(.5);
+
+		if Toggles.PingSpoofer then
+			if aa ==false then
+				local rep = game.ReplicatedStorage
+				local wfc = game.WaitForChild
+				local gm = wfc(rep, "GlobalModules")
+				local function requireGm(name)
+    			return require(wfc(gm, name))
+				end
+				local rf = wfc(wfc(rep, "Events"), "PingRf")
+				function rf.OnClientInvoke()
+    				wait(10)
+    				return true
+				end
+				aa = true
+			end
+		else
+			if aa == true then
+				local rep = game.ReplicatedStorage
+				local wfc = game.WaitForChild
+				local gm = wfc(rep, "GlobalModules")
+				local function requireGm(name)
+    			return require(wfc(gm, name))
+				end
+				local rf = wfc(wfc(rep, "Events"), "PingRf")
+				function rf.OnClientInvoke()
+    				return true
+				end
+				aa = false
+			end
+		end
 
 		if Toggles.Bomb_Switcher then
 			if j == false then
